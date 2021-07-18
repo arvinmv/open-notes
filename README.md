@@ -8,16 +8,9 @@ Contact: ```m@hiser.io```
 
 You can bookmark the URL of this page (```https://github.com/6869736572/open-notes```) or pull everything onto your local machine from your shell as shown below.
 
-wget
+wget, curl, or git
 ```bash
-wget https://github.com/6869736572/open-notes/archive/refs/heads/main.zip
-```
-curl
-```bash
-curl -O https://github.com/6869736572/open-notes/archive/refs/heads/main.zip
-```
-
-git
-```bash
-git clone https://github.com/6869736572/open-notes/archive/refs/heads/main.zip
+wget https://github.com/6869736572/open-notes/archive/refs/heads/master.zip
+curl -O https://github.com/6869736572/open-notes/archive/refs/heads/master.zip
+git clone https://github.com/6869736572/open-notes/archive/refs/heads/master.zip
 ```
