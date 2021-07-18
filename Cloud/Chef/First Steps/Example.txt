@@ -1,0 +1,126 @@
+
+========== ENVIRONMENT ==========
+
+Ubuntu 20.04.1 LTS (fresh install)
+
+Run "free -m" and "lsblk" to confirm you have enough resources to run all the following packages below and future nodes that will be instantiated.
+
+========== INSTALLATION ==========
+
+	1. Virtualbox
+		>> sudo apt-get install virtualbox-6.1
+
+		If this doesn't work you need to handle repositories, a basic linux task. If needed, you can find more details at https://www.virtualbox.org/wiki/Linux_Downloads.
+
+	2. Vagrant
+		>> sudo apt-get install vagrant
+
+	3. Packer
+		>> sudo apt-get install packer
+
+	4. Verify git is installed 
+		>> git
+
+	5. Chef Workstation
+		
+		Grab the files: 
+		>> wget https://packages.chef.io/files/stable/chef-workstation/20.9.136/ubuntu/20.04/chef-workstation_20.9.136-1_amd64.deb
+
+		Unpack and install:	
+		>> dpkg -i chefworkstation_0.14.16-1_amd64.deb
+
+		Confirm version: 
+		>> chef -v
+
+
+
+========== HELLO WORLD ==========
+
+
+1. Create a directory, initialize a git repo, and pull the learn_chef_httpd files.
+
+>> cd ~/Desktop
+>> mkdir learn_chef_httpd
+>> cd learn_chef_httpd
+>> git init
+>> git pull https://github.com/learn-chef/learn_chef_httpd.git
+
+
+2. Your directory should now look like this:
+
+>> ls -al
+
+drwxrwxr-x 8 mike mike  4096 Sep 23 09:58 .
+drwxr-xr-x 3 mike mike  4096 Sep 23 09:57 ..
+-rw-rw-r-- 1 mike mike    47 Sep 23 09:58 Berksfile
+-rw-rw-r-- 1 mike mike  1067 Sep 23 09:58 chefignore
+drwxrwxr-x 3 mike mike  4096 Sep 23 09:58 .delivery
+drwxrwxr-x 8 mike mike  4096 Sep 23 09:58 .git
+-rw-rw-r-- 1 mike mike   126 Sep 23 09:58 .gitignore
+-rw-rw-r-- 1 mike mike   263 Sep 23 09:58 .kitchen.yml
+-rw-rw-r-- 1 mike mike 11357 Sep 23 09:58 LICENSE
+-rw-rw-r-- 1 mike mike   411 Sep 23 09:58 metadata.rb
+-rw-rw-r-- 1 mike mike    87 Sep 23 09:58 README.md
+drwxrwxr-x 2 mike mike  4096 Sep 23 09:58 recipes
+-rw-rw-r-- 1 mike mike   115 Sep 23 09:58 .rubocop.yml
+drwxrwxr-x 3 mike mike  4096 Sep 23 09:58 spec
+drwxrwxr-x 2 mike mike  4096 Sep 23 09:58 templates
+drwxrwxr-x 3 mike mike  4096 Sep 23 09:58 test
+
+
+
+3. Inspect the kitchen.yml recipe, it looks like this:
+
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  product_name: chef
+  product_version: 14.12.9
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    attributes:
+
+
+This has defined a single CentOS node. When we start the workflow we should expect to have one CentOS node deployed.
+
+
+4. Deployment
+
+>> kitchen create
+
+You should expect this to take a few minutes. Read the terminal text after running the command and it will be clear to you why.
+
+
+In my case, this process failed. After reviewing the console output, it is clear what I need to do to resolve the issue:
+
+	==> default: Booting VM...
+	STDERR: There was an error while executing `VBoxManage`, a CLI used by Vagrant
+	for controlling VirtualBox. The command and stderr is shown below.
+
+	Command: ["startvm", "0968aeaa-5bba-4a76-bc6f-ba31fa0fb3c5", "--type", "headless"]
+
+	Stderr: VBoxManage: error: AMD-V is disabled in the BIOS (or by the host OS) (VERR_SVM_DISABLED)
+	VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+	---- End output of vagrant up --no-provision --provider virtualbox ----
+	Ran vagrant up --no-provision --provider virtualbox returned 1] on default-centos-7
+
+After enabling virtualization in BIOS and rebooting, things will work as expected. After running "kitchen create" again the process moves much faster, becuase the CentOS box is cached locally (we downloaded it the first time we ran "kitchen create").
+
+
+>> kitchen converge
+
+>> kitchen verify
+
+>> kitchen destroy
+

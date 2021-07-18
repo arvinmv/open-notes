@@ -1,0 +1,14 @@
+#### Good reads
+
+## Textbooks
+-Distributed Systems
+-Designing Data-Intensive Applications
+-System Design Interview
+-Designing Distributed Systems
+-Database Internal
+-Streaming Systems
+-Building Secure & Reliable Systems
+-Database Internals
+
+## Papers
+-
