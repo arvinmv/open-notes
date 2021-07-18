@@ -1,5 +1,5 @@
 #### Getting started
-* Example walkthrough [here](https://raw.githubusercontent.com/6869736572/open-notes/main/Cloud/Chef/First%20Steps/Example.txt)
+* Example walkthrough [here](https://raw.githubusercontent.com/6869736572/open-notes/master/Cloud/Chef/First%20Steps/Example.txt)
 
 * Plan your environment: Will you run the solution locally or on a cloud vendor such as AWS, Azure, or GCP? This decision will determine how you execute the installation and configuration steps (below).
 
