@@ -3,11 +3,11 @@
 
 * Plan your environment: Will you run the solution locally or on a cloud vendor such as AWS, Azure, or GCP? This decision will determine how you execute the installation and configuration steps (below).
 
-* Install and configure Chef: There is no better documentation on installing and configuring software than from the vendor themselves. Follow the steps here according to the OS your host runs on.
+* Install and configure Chef: There is no better documentation on installing and configuring software than from the vendor themselves. Follow the steps [here](https://docs.chef.io/workstation/install_workstation/) according to the OS your host runs on.
 
 * Install and configure Test Kitchen: Good news, batteries are included! If you've installed Chef Workstation, Test Kitchen now comes included.
 
-* Install and configure Vagrant: Using VirtualBox+Vagrant is optional. For example, if you are running on AWS, Azure, or GCP, you don't need Vagrant. Follow the steps here to install and configure Vagrant.
+* Install and configure Vagrant: Using VirtualBox+Vagrant is optional. For example, if you are running on AWS, Azure, or GCP, you don't need Vagrant. Follow the steps [here](https://www.vagrantup.com/docs/installation) to install and configure Vagrant.
 
 * Deploy your nodes: If you have not already deployed nodes while going through your course material, do so now. You can use the "Get started" tutorial at learn.chef.io to deploy an Ubuntu node on either Vagrant (local), AWS, or Azure.
 
